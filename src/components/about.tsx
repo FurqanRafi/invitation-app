@@ -12,7 +12,7 @@ const Playfair = Playfair_Display({ subsets: ['latin'] });
 
 const about = () => {
     return (
-        <div id='About' className="w-full min-h-screen relative flex items-center justify-center bg-white overflow-hidden">
+        <div id='about' className="w-full min-h-screen relative flex items-center justify-center bg-white overflow-hidden">
             <div className='w-full h-full py-10 absolute top-0 left-0 z-10 bg-gradient-to-r from-white to-pink-50 flex items-center justify-center pointer-events-none'>
                 <div className='absolute right-0 top-0 h-50 sm:h-60 md:h-70 lg:h-80 w-40 sm:w-60 md:w-70 lg:w-90 pointer-events-none z-0'>
                     <Image src={Flower} alt="Flower decoration" className='w-full h-full object-cover' priority />

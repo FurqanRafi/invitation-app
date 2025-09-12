@@ -10,7 +10,7 @@ import { HiMenuAlt3, HiX } from "react-icons/hi"; // icons for mobile menu
 
 const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '#About', label: 'About Us' },
+    { href: '#about', label: 'About Us' },
     { href: '/services', label: 'Services' },
     { href: '/gallery', label: 'Gallery' },
     { href: '/contact', label: 'Contact' },
