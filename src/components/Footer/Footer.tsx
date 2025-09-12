@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Logo from '@/Assets/Logo bgRemove.png'
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaYoutube, FaTiktok, } from "react-icons/fa";
 import { Montserrat, Outfit, Playfair_Display } from 'next/font/google';
 
 const playfair = Playfair_Display({ subsets: ['latin'] });
@@ -26,14 +26,14 @@ const Footer = () => {
                     </p>
                     <div className="flex justify-center md:justify-start gap-3">
                         {/* Replace with real icons */}
-                        <div className="flex space-x-3">
-                            {[FaFacebookF, FaTwitter, FaLinkedinIn, FaGithub].map((Icon, i) => (
+                        <div className="flex space-x-7 mt-3">
+                            {[FaFacebookF, FaInstagram, FaTiktok, FaYoutube,].map((Icon, i) => (
                                 <a
                                     key={i}
                                     href="#"
-                                    className="w-10 h-10 flex items-center justify-center bg-purple-600 text-white rounded"
+                                    className="text-3xl flex items-center justify-center "
                                 >
-                                    <Icon className="transition-transform duration-200 ease-out hover:translate-y-9 hover:scale-90" />
+                                    <Icon className="cursor-pointer" />
                                 </a>
                             ))}
                         </div>
