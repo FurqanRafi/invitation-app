@@ -10,7 +10,7 @@ import { HiMenuAlt3, HiX } from "react-icons/hi"; // icons for mobile menu
 
 const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/about', label: 'About Us' },
+    { href: '#About', label: 'About Us' },
     { href: '/services', label: 'Services' },
     { href: '/gallery', label: 'Gallery' },
     { href: '/contact', label: 'Contact' },
@@ -36,8 +36,8 @@ const Header = () => {
                             <li key={link.href}>
                                 <Link
                                     className={`text-lg font-semibold uppercase transition-colors hover:text-[#824D5D] ${pathname === link.href
-                                            ? 'text-[#824D5D] underline underline-offset-4'
-                                            : 'text-[#1A281F]'
+                                        ? 'text-[#824D5D] underline underline-offset-4'
+                                        : 'text-[#1A281F]'
                                         }`}
                                     href={link.href}
                                 >
@@ -86,8 +86,8 @@ const Header = () => {
                         <li key={link.href}>
                             <Link
                                 className={`text-xl font-semibold uppercase block hover:text-[#824D5D] ${pathname === link.href
-                                        ? 'text-[#824D5D] underline underline-offset-4'
-                                        : 'text-gray-700'
+                                    ? 'text-[#824D5D] underline underline-offset-4'
+                                    : 'text-gray-700'
                                     }`}
                                 href={link.href}
                                 onClick={() => setMenuOpen(false)}
