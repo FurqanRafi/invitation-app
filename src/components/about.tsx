@@ -27,7 +27,7 @@ const about = () => {
                                 <h1 className={` text-3xl lg:text-5xl font-bold ${Playfair.className}`}>
                                     <span className="text-[#824D5D]">About</span> Us
                                 </h1>
-                                <p className={`text-medium leading-10 mt-5 text-justify ${outfit.className}`}>
+                                <p className={`text-medium  mt-5 text-justify ${outfit.className}`}>
                                     At [App Name], we believe that every celebration deserves a beautiful beginning.
                                     Our mission is to make invitations simple, stylish, and stress-free.
                                     Whether it’s a wedding, birthday, or corporate event, we help you design digital invites
