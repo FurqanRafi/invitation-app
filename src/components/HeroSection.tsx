@@ -11,7 +11,7 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 
 const HeroSection = () => {
     return (
-        <section className="relative  w-full min-h-screen flex bg-white overflow-hidden">
+        <section id='Hero' className="relative  w-full min-h-screen flex bg-white overflow-hidden">
 
             {/* Decorative Flower (Left Side) */}
             <div className="absolute left-0 top-0 h-150 sm:h-100 md:h-150 lg:h-200 w-14 sm:w-15 md:w-25 lg:w-35 pointer-events-none z-0">

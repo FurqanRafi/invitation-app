@@ -12,8 +12,8 @@ const navLinks = [
     { href: '/', label: 'Home' },
     { href: '#about', label: 'About Us' },
     { href: '#services', label: 'Services' },
-    { href: '/gallery', label: 'Gallery' },
-    { href: '/contact', label: 'Contact' },
+    { href: '#Hero', label: 'Gallery' },
+    { href: '#cards', label: 'Contact' },
 ]
 
 const Header = () => {
@@ -26,8 +26,16 @@ const Header = () => {
 
                 {/* Logo */}
                 <div className="flex items-center">
-                    <Image src={Logo} alt="logo" width={170} height={170} className="cursor-pointer" />
-                </div>
+                    <Link href="/">
+                        <Image
+                            src={Logo}
+                            alt="logo"
+                            width={170}
+                            height={170}
+                            className="cursor-pointer"
+                        />
+                    </Link>
+                </div>  
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex">
@@ -50,9 +58,12 @@ const Header = () => {
 
                 {/* CTA Button */}
                 <div className="hidden md:flex items-center border-2 border-gray-700 px-5 py-2 ">
-                    <button className="flex items-center gap-3 px-1 py-1 font-bold text-xl uppercase border-b-4 text-[#1A281F] hover:text-[#824D5D] transition cursor-pointer">
+                    <a
+                        href="#"
+                        className="flex items-center gap-3 px-1 py-1 font-bold text-xl uppercase border-b-4 text-[#1A281F] hover:text-[#824D5D] transition cursor-pointer"
+                    >
                         Consult <FaArrowRightLong className="text-2xl" />
-                    </button>
+                    </a>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -98,12 +109,16 @@ const Header = () => {
                     ))}
 
                     {/* CTA Button */}
-                    <button className="flex items-center gap-3 px-6 py-2 font-bold text-lg uppercase border-b-4 border-[#824D5D] hover:text-[#824D5D] transition">
+                    <a
+                        href="#services"
+                        className="flex items-center gap-3 px-6 py-2 font-bold text-lg uppercase border-b-4 border-[#824D5D] hover:text-[#824D5D] transition"
+                    >
                         Consult <FaArrowRightLong className="text-2xl" />
-                    </button>
+                    </a>
+
                 </ul>
             </div>
-        </header>
+        </header >
     )
 }
 

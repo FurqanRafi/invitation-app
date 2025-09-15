@@ -9,7 +9,7 @@ const images = [card1, card2, card3, card4]
 
 const Cards = () => {
     return (
-        <div className="w-full mb-20 ">
+        <div id='cards' className="w-full mb-10 lg:mb-20 mt-5 ">
             <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
                 {images.map((img, idx) => (
                     <div
