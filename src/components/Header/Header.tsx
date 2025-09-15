@@ -26,7 +26,7 @@ const Header = () => {
 
                 {/* Logo */}
                 <div className="flex items-center">
-                    <Image src={Logo} alt="logo" width={120} height={120} className="cursor-pointer" />
+                    <Image src={Logo} alt="logo" width={170} height={170} className="cursor-pointer" />
                 </div>
 
                 {/* Desktop Nav */}

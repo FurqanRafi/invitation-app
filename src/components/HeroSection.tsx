@@ -14,7 +14,7 @@ const HeroSection = () => {
         <section className="relative  w-full min-h-screen flex bg-white overflow-hidden">
 
             {/* Decorative Flower (Left Side) */}
-            <div className="absolute left-0 top-0 h-full w-24 sm:w-28 md:w-32 lg:w-40 pointer-events-none z-0">
+            <div className="absolute left-0 top-0 h-150 sm:h-100 md:h-150 lg:h-200 w-14 sm:w-15 md:w-25 lg:w-35 pointer-events-none z-0">
                 <Image
                     src={flower}
                     alt="Flower decoration"
@@ -31,7 +31,7 @@ const HeroSection = () => {
                         — Hello and Welcome,
                     </p>
 
-                    <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight ${playfair.className}`}>
+                    <h1 className={`text-4xl sm:text-5xl md:text-6.5xl lg:text-6xl font-semibold leading-tight ${playfair.className}`}>
                         Create & Share Beautiful
                         <span className="text-[#824D5D]"> Invitations</span>
                     </h1>
@@ -55,7 +55,7 @@ const HeroSection = () => {
 
                 {/* Right Content (Hero Image) */}
                 <div className="w-full md:w-1/2 flex justify-center">
-                    <div className="w-[90%] sm:w-[70%] md:w-full h-[300px] sm:h-[380px] md:h-[450px] flex items-center justify-center">
+                    <div className="w-[90%] sm:w-[70%] md:w-full h-[300px] sm:h-[400px] md:h-[450px] flex items-center justify-center">
                         <Image
                             src={img}
                             alt="Hero Image"
