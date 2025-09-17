@@ -7,18 +7,25 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { HiMenuAlt3, HiX } from "react-icons/hi"; // icons for mobile menu
-
-const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '#about', label: 'About Us' },
-    { href: '#services', label: 'Services' },
-    { href: '#Hero', label: 'Gallery' },
-    { href: '#cards', label: 'Contact' },
-]
+import { useAppContext } from '@/context/appcontext';
+// const navLinks = [
+//     { href: '/', label: 'Home' },
+//     { href: '#about', label: 'About Us' },
+//     { href: '#services', label: 'Services' },
+//     { href: '#Hero', label: 'Gallery' },
+//     { href: '#cards', label: 'Contact' },
+// ]
 
 const Header = () => {
     const pathname = usePathname()
     const [menuOpen, setMenuOpen] = React.useState(false);
+    
+
+    const { navbar, loading } = useAppContext();
+    console.log(navbar)
+
+    if (loading) return <p>Loading...</p>;
+    if (!navbar) return <p>No Navbar Data Found</p>;
 
     return (
         <header className="w-full bg-white">
@@ -27,29 +34,29 @@ const Header = () => {
                 {/* Logo */}
                 <div className="flex items-center">
                     <Link href="/">
-                        <Image
-                            src={Logo}
+                        <img
+                            src={navbar.img}
                             alt="logo"
                             width={170}
                             height={170}
                             className="cursor-pointer"
                         />
                     </Link>
-                </div>  
+                </div>
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex">
                     <ul className="flex gap-8">
-                        {navLinks.map(link => (
-                            <li key={link.href}>
+                        {navbar.navlinks.map(link => (
+                            <li key={link.link}>
                                 <Link
-                                    className={`text-lg font-semibold uppercase transition-colors hover:text-[#824D5D] ${pathname === link.href
+                                    className={`text-lg font-semibold uppercase transition-colors hover:text-[#824D5D] ${pathname === link.link
                                         ? 'text-[#824D5D] underline underline-offset-4'
                                         : 'text-[#1A281F]'
                                         }`}
-                                    href={link.href}
+                                    href={link.link}
                                 >
-                                    {link.label}
+                                    {link.name}
                                 </Link>
                             </li>
                         ))}
@@ -93,17 +100,17 @@ const Header = () => {
 
                 {/* Nav Links */}
                 <ul className="flex flex-col items-center gap-8 py-12">
-                    {navLinks.map(link => (
-                        <li key={link.href}>
+                    {navbar.navlinks.map(link => (
+                        <li key={link.link}>
                             <Link
-                                className={`text-xl font-semibold uppercase block hover:text-[#824D5D] ${pathname === link.href
+                                className={`text-xl font-semibold uppercase block hover:text-[#824D5D] ${pathname === link.link
                                     ? 'text-[#824D5D] underline underline-offset-4'
                                     : 'text-gray-700'
                                     }`}
-                                href={link.href}
+                                href={link.link}
                                 onClick={() => setMenuOpen(false)}
                             >
-                                {link.label}
+                                {link.name}
                             </Link>
                         </li>
                     ))}
