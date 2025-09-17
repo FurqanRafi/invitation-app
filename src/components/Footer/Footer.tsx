@@ -11,6 +11,9 @@ const outfit = Outfit({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 
+
+
+
 const Footer = () => {
     return (
         <footer className="w-full Mycontainer mt-30 ">
