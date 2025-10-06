@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+.Mycontainer {
+  width: 80%;
+  max-width: 1440px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
