@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, {
   createContext,
@@ -6,7 +6,6 @@ import React, {
   ReactNode,
   useEffect,
   useState,
-  useMemo,
 } from "react";
 
 /* ---------- types ---------- */
@@ -75,11 +74,6 @@ export interface Service {
   link: string;
 }
 
-export interface Location {
-  address: string;
-  mapEmbedUrl: string;
-}
-
 export interface FooterData {
   _id?: string;
   logo: string;
@@ -91,8 +85,8 @@ export interface FooterData {
   copyright: string;
 }
 
-/* ---------- context shape (no `any`) ---------- */
-export type AppContextType = {
+/* ---------- context shape ---------- */
+export interface AppContextType {
   navbar: NavbarData | null;
   hero: HeroData | null;
   about: AboutData | null;
@@ -101,8 +95,9 @@ export type AppContextType = {
   footer: FooterData | null;
   heroLoading: boolean;
   loading: boolean;
-};
+}
 
+/* ---------- default safe context ---------- */
 const defaultContext: AppContextType = {
   navbar: null,
   hero: null,
@@ -114,7 +109,7 @@ const defaultContext: AppContextType = {
   loading: true,
 };
 
-const AppContext = createContext<AppContextType>(defaultContext);
+export const AppContext = createContext<AppContextType>(defaultContext);
 
 /* ---------- provider ---------- */
 export const AppProvider = ({ children }: { children: ReactNode }) => {
@@ -124,96 +119,40 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [popular, setPopular] = useState<PopularData | null>(null);
   const [card, setCard] = useState<CardsData | null>(null);
   const [footer, setFooter] = useState<FooterData | null>(null);
-
   const [loading, setLoading] = useState<boolean>(true);
   const [heroLoading, setHeroLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchNavbar = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/navbar`); // 👈 tumhara backend API
-        const data = await res.json();
-        setNavbar(data[0]);
-      } catch (err) {
-        console.error("Error fetching navbar:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Helper to fetch data safely
+  const safeFetch = async <T,>(url: string, setter: (data: T) => void) => {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to fetch ${url}`);
+      const data = await res.json();
+      setter(data[0]);
+    } catch (err) {
+      console.error(`❌ Fetch error for ${url}:`, err);
+    }
+  };
 
-    fetchNavbar();
-  }, []);
-
+  // Fetch all APIs
   useEffect(() => {
-    const fetchHeroSection = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/hero`);
-        const data = await res.json();
-        console.log(data, "hero");
-        setHero(data[0]);
-      } catch (err) {
-        console.error("Error fetching herosection:", err);
-      } finally {
-        setHeroLoading(false);
-      }
-    };
-    fetchHeroSection();
-  }, []);
+    const api = process.env.NEXT_PUBLIC_API;
+    if (!api) {
+      console.error("❌ Missing NEXT_PUBLIC_API environment variable");
+      setLoading(false);
+      return;
+    }
 
-  useEffect(() => {
-    const fetchAbout = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/about`);
-        const data = await res.json();
-        console.log(data, "about");
-        setAbout(data[0]);
-      } catch (err) {
-        console.error("Error fetching About Us:", err);
-      }
-    };
-    fetchAbout();
-  }, []);
-
-  useEffect(() => {
-    const fetchPopular = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/popular`);
-        const data = await res.json();
-        console.log(data, "popular");
-        setPopular(data[0]);
-      } catch (err) {
-        console.error("Error fetching Popular Data ", err);
-      }
-    };
-    fetchPopular();
-  }, []);
-
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/card`);
-        const data = await res.json();
-        console.log(data, "cards");
-        setCard(data[0]);
-      } catch (err) {
-        console.error("Error by fetching the Cards Data", err);
-      }
-    };
-    fetchCards();
-  }, []);
-
-  useEffect(() => {
-    const fetchFooter = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/footer`);
-        const data = await res.json();
-        console.log(data, "footer");
-        setFooter(data[0]);
-      } catch (err) {
-        console.error("Error by Fetching the Footer Data", err);
-      }
-    };
-    fetchFooter();
+    Promise.all([
+      safeFetch<NavbarData>(`${api}/navbar`, setNavbar),
+      safeFetch<HeroData>(`${api}/hero`, setHero),
+      safeFetch<AboutData>(`${api}/about`, setAbout),
+      safeFetch<PopularData>(`${api}/popular`, setPopular),
+      safeFetch<CardsData>(`${api}/card`, setCard),
+      safeFetch<FooterData>(`${api}/footer`, setFooter),
+    ])
+      .catch((err) => console.error("Error fetching app data:", err))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -234,5 +173,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Custom hook
-export const useAppContext = () => useContext(AppContext);
+/* ---------- custom hook ---------- */
+export const useAppContext = () => {
+  const context = useContext(AppContext);
+  if (context === undefined) {
+    throw new Error("useAppContext must be used within an AppProvider");
+  }
+  return context;
+};
