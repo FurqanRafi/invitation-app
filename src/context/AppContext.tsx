@@ -135,6 +135,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
           `https://new-backend-invitation.vercel.app/api/navbar`
         ); // 👈 tumhara backend API
         const data = await res.json();
+        console.log(data, "navbar");
         setNavbar(data[0]);
       } catch (err) {
         console.error("Error fetching navbar:", err);
