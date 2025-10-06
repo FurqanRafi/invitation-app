@@ -131,7 +131,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchNavbar = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/navbar`); // 👈 tumhara backend API
+        const res = await fetch(
+          `https://new-backend-invitation.vercel.app/api/navbar`
+        ); // 👈 tumhara backend API
         const data = await res.json();
         setNavbar(data[0]);
       } catch (err) {
@@ -147,7 +149,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchHeroSection = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/hero`);
+        const res = await fetch(
+          `https://new-backend-invitation.vercel.app/api/hero`
+        );
         const data = await res.json();
         console.log(data, "hero");
         setHero(data[0]);
@@ -163,7 +167,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchAbout = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/about`);
+        const res = await fetch(
+          `https://new-backend-invitation.vercel.app/api/about`
+        );
         const data = await res.json();
         console.log(data, "about");
         setAbout(data[0]);
@@ -177,7 +183,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchPopular = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/popular`);
+        const res = await fetch(
+          `https://new-backend-invitation.vercel.app/api/popular`
+        );
         const data = await res.json();
         console.log(data, "popular");
         setPopular(data[0]);
@@ -191,7 +199,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/card`);
+        const res = await fetch(
+          `https://new-backend-invitation.vercel.app/api/card`
+        );
         const data = await res.json();
         console.log(data, "cards");
         setCard(data[0]);
@@ -205,7 +215,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchFooter = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/footer`);
+        const res = await fetch(
+          `https://new-backend-invitation.vercel.app/api/footer`
+        );
         const data = await res.json();
         console.log(data, "footer");
         setFooter(data[0]);
