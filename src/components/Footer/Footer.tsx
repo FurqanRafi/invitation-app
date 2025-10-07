@@ -48,18 +48,18 @@ const Footer: React.FC = (): JSX.Element | null => {
 
           <div className="flex justify-center md:justify-start gap-3">
             <div className="flex space-x-7 mt-3">
-              {footer.socaillinks?.map((link: SocialLink) => (
+              {footer?.socaillinks?.map((link: SocialLink) => (
                 <a
-                  key={link.url}
-                  href={link.url}
+                  key={link?.url}
+                  href={link?.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-3xl flex items-center justify-center"
                 >
                   {/* Image needs width/height for optimization */}
                   <Image
-                    src={link.icon}
-                    alt={link.platform}
+                    src={link?.icon}
+                    alt={link?.platform || 'image'}
                     width={32}
                     height={32}
                     className="h-8 w-8"
@@ -82,11 +82,11 @@ const Footer: React.FC = (): JSX.Element | null => {
             <ul
               className={`space-y-3 text-lg cursor-pointer lg:text-xl font-medium flex flex-col gap-2 text-[#3F3F3F] ${outfit.className}`}
             >
-              {footer.navlinks?.map((item: MenuItem) => (
+              {footer?.navlinks?.map((item: MenuItem) => (
                 <li key={item._id}>
                   {/* Use next/link for internal navigation */}
-                  <Link href={item.link} className="hover:text-[#824D5D]">
-                    {item.name}
+                  <Link href={item.links} className="hover:text-[#824D5D]">
+                    {item.names}
                   </Link>
                 </li>
               ))}
@@ -104,7 +104,7 @@ const Footer: React.FC = (): JSX.Element | null => {
             <ul
               className={`${outfit.className} space-y-3 text-lg cursor-pointer text-[#3F3F3F] flex flex-col gap-2 lg:text-xl font-medium`}
             >
-              {footer.quicklinks?.map((service: Service) => (
+              {footer?.quicklinks?.map((service: Service) => (
                 <li key={service._id}>
                   <Link href={service.link} className="hover:text-[#824D5D]">
                     {service.name}
@@ -125,7 +125,7 @@ const Footer: React.FC = (): JSX.Element | null => {
           <div className="rounded-cl overflow-hidden shadow">
             {/* footer.address is an object (Location). Use its mapEmbedUrl string */}
             <iframe
-              src={footer.address}
+              src={footer?.mapEmbedUrl}
               width="100%"
               height="250"
               title="Google Map"

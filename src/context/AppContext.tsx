@@ -65,8 +65,8 @@ export interface SocialLink {
 
 export interface MenuItem {
   _id: string;
-  name: string;
-  link: string;
+  names: string;
+  links: string;
 }
 
 export interface Service {
@@ -83,6 +83,7 @@ export interface Location {
 export interface FooterData {
   _id?: string;
   logo: string;
+  mapEmbedUrl:string;
   description: string;
   socaillinks: SocialLink[];
   navlinks: MenuItem[];
