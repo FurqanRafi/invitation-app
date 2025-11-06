@@ -15,10 +15,9 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 
 const HeroSection = () => {
 
-    const {hero, heroLoading} = useAppContext();
+    const {hero} = useAppContext();
     console.log(hero);
 
-    if (heroLoading) return <p>Loading...</p>;
     if (!hero) return <p>No Hero Data Found</p>;
     
 

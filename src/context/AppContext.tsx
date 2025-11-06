@@ -1,24 +1,14 @@
 "use client";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import Loader from "@/components/Loader";
 
-import React, {
-  createContext,
-  useContext,
-  ReactNode,
-  useEffect,
-  useState,
-
-} from "react";
-
-/* ---------- types ---------- */
 export type NavLink = { _id: string; name: string; link: string };
-
 export type NavbarData = {
   logo: string;
   navlinks: NavLink[];
   btntext: string;
   btnlink: string;
 };
-
 export type HeroData = {
   _id: string;
   title: string;
@@ -29,7 +19,6 @@ export type HeroData = {
   heroimg: string;
   sideimg: string;
 };
-
 export type AboutData = {
   _id: string;
   aboutimg: string;
@@ -40,14 +29,12 @@ export type AboutData = {
   img2: string;
   img3: string;
 };
-
 export type PopularData = {
   _id: string;
   title: string;
   description: string;
   topimg: string;
 };
-
 export type CardsData = {
   _id: string;
   length: number;
@@ -56,34 +43,25 @@ export type CardsData = {
   Cardimg3: string;
   Cardimg4: string;
 };
-
 export interface SocialLink {
   platform: string;
   icon: string;
   url: string;
 }
-
 export interface MenuItem {
   _id: string;
   names: string;
   links: string;
 }
-
 export interface Service {
   _id: string;
   name: string;
   link: string;
 }
-
-export interface Location {
-  address: string;
-  mapEmbedUrl: string;
-}
-
 export interface FooterData {
   _id?: string;
   logo: string;
-  mapEmbedUrl:string;
+  mapEmbedUrl: string;
   description: string;
   socaillinks: SocialLink[];
   navlinks: MenuItem[];
@@ -92,7 +70,6 @@ export interface FooterData {
   copyright: string;
 }
 
-/* ---------- context shape (no `any`) ---------- */
 export type AppContextType = {
   navbar: NavbarData | null;
   hero: HeroData | null;
@@ -100,7 +77,6 @@ export type AppContextType = {
   popular: PopularData | null;
   card: CardsData | null;
   footer: FooterData | null;
-  heroLoading: boolean;
   loading: boolean;
 };
 
@@ -111,142 +87,77 @@ const defaultContext: AppContextType = {
   popular: null,
   card: null,
   footer: null,
-  heroLoading: false,
   loading: true,
 };
 
 const AppContext = createContext<AppContextType>(defaultContext);
 
-/* ---------- provider ---------- */
-export const AppProvider = ({ children }: { children: ReactNode }) => {
+export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [navbar, setNavbar] = useState<NavbarData | null>(null);
   const [hero, setHero] = useState<HeroData | null>(null);
   const [about, setAbout] = useState<AboutData | null>(null);
   const [popular, setPopular] = useState<PopularData | null>(null);
   const [card, setCard] = useState<CardsData | null>(null);
   const [footer, setFooter] = useState<FooterData | null>(null);
-
-  const [loading, setLoading] = useState<boolean>(true);
-  const [heroLoading, setHeroLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNavbar = async () => {
+    const fetchAllData = async () => {
       try {
-        const res = await fetch(
-          `https://new-backend-invitation.vercel.app/api/navbar`
-        ); // 👈 tumhara backend API
-        const data = await res.json();
-        console.log(data, "navbar");
-        setNavbar(data[0]);
+        const [navbarRes, heroRes, aboutRes, popularRes, cardRes, footerRes] =
+          await Promise.all([
+            fetch("https://new-backend-invitation.vercel.app/api/navbar"),
+            fetch("https://new-backend-invitation.vercel.app/api/hero"),
+            fetch("https://new-backend-invitation.vercel.app/api/about"),
+            fetch("https://new-backend-invitation.vercel.app/api/popular"),
+            fetch("https://new-backend-invitation.vercel.app/api/card"),
+            fetch("https://new-backend-invitation.vercel.app/api/footer"),
+          ]);
+
+        const [
+          navbarData,
+          heroData,
+          aboutData,
+          popularData,
+          cardData,
+          footerData,
+        ] = await Promise.all([
+          navbarRes.json(),
+          heroRes.json(),
+          aboutRes.json(),
+          popularRes.json(),
+          cardRes.json(),
+          footerRes.json(),
+        ]);
+
+        setNavbar(navbarData[0]);
+        setHero(heroData[0]);
+        setAbout(aboutData[0]);
+        setPopular(popularData[0]);
+        setCard(cardData[0]);
+        setFooter(footerData[0]);
       } catch (err) {
-        console.error("Error fetching navbar:", err);
+        console.error("Error fetching data:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchNavbar();
+    fetchAllData();
   }, []);
 
-  useEffect(() => {
-    const fetchHeroSection = async () => {
-      try {
-        const res = await fetch(
-          `https://new-backend-invitation.vercel.app/api/hero`
-        );
-        const data = await res.json();
-        console.log(data, "hero");
-        setHero(data[0]);
-      } catch (err) {
-        console.error("Error fetching herosection:", err);
-      } finally {
-        setHeroLoading(false);
-      }
-    };
-    fetchHeroSection();
-  }, []);
-
-  useEffect(() => {
-    const fetchAbout = async () => {
-      try {
-        const res = await fetch(
-          `https://new-backend-invitation.vercel.app/api/about`
-        );
-        const data = await res.json();
-        console.log(data, "about");
-        setAbout(data[0]);
-      } catch (err) {
-        console.error("Error fetching About Us:", err);
-      }
-    };
-    fetchAbout();
-  }, []);
-
-  useEffect(() => {
-    const fetchPopular = async () => {
-      try {
-        const res = await fetch(
-          `https://new-backend-invitation.vercel.app/api/popular`
-        );
-        const data = await res.json();
-        console.log(data, "popular");
-        setPopular(data[0]);
-      } catch (err) {
-        console.error("Error fetching Popular Data ", err);
-      }
-    };
-    fetchPopular();
-  }, []);
-
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const res = await fetch(
-          `https://new-backend-invitation.vercel.app/api/card`
-        );
-        const data = await res.json();
-        console.log(data, "cards");
-        setCard(data[0]);
-      } catch (err) {
-        console.error("Error by fetching the Cards Data", err);
-      }
-    };
-    fetchCards();
-  }, []);
-
-  useEffect(() => {
-    const fetchFooter = async () => {
-      try {
-        const res = await fetch(
-          `https://new-backend-invitation.vercel.app/api/footer`
-        );
-        const data = await res.json();
-        console.log(data, "footer");
-        setFooter(data[0]);
-      } catch (err) {
-        console.error("Error by Fetching the Footer Data", err);
-      }
-    };
-    fetchFooter();
-  }, []);
+  // Show loader until all data is loaded
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <AppContext.Provider
-      value={{
-        navbar,
-        hero,
-        about,
-        popular,
-        card,
-        footer,
-        loading,
-        heroLoading,
-      }}
+      value={{ navbar, hero, about, popular, card, footer, loading }}
     >
       {children}
     </AppContext.Provider>
   );
 };
 
-// Custom hook
 export const useAppContext = () => useContext(AppContext);

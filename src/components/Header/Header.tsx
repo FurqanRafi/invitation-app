@@ -7,7 +7,7 @@ import { HiMenuAlt3, HiX } from "react-icons/hi";
 import Image from "next/image";
 import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
-  
+
 interface NavLink {
   _id: string;
   name: string;
@@ -25,12 +25,10 @@ const Header: React.FC = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = React.useState(false);
 
-  const { navbar, loading } = useAppContext() as {
+  const { navbar } = useAppContext() as {
     navbar: NavbarData | null;
-    loading: boolean;
   };
 
-  if (loading) return <p>Loading...</p>;
   if (!navbar) return <p>No Navbar Data Found</p>;
 
   return (

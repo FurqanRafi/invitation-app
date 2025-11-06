@@ -59,7 +59,7 @@ const Footer: React.FC = (): JSX.Element | null => {
                   {/* Image needs width/height for optimization */}
                   <Image
                     src={link?.icon}
-                    alt={link?.platform || 'image'}
+                    alt={link?.platform || "image"}
                     width={32}
                     height={32}
                     className="h-8 w-8"
@@ -130,7 +130,6 @@ const Footer: React.FC = (): JSX.Element | null => {
               height="250"
               title="Google Map"
               allowFullScreen
-              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
